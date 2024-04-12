@@ -1,0 +1,14 @@
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\bin\Debug\net8.0\DummyClient.exe
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\bin\Debug\net8.0\DummyClient.deps.json
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\bin\Debug\net8.0\DummyClient.runtimeconfig.json
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\bin\Debug\net8.0\DummyClient.dll
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\bin\Debug\net8.0\DummyClient.pdb
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.GeneratedMSBuildEditorConfig.editorconfig
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.AssemblyInfoInputs.cache
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.AssemblyInfo.cs
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.csproj.CoreCompileInputs.cache
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.dll
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\refint\DummyClient.dll
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.pdb
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\DummyClient.genruntimeconfig.cache
+D:\ChoiServer\SocketAsyncEventArgs\DummyClient\obj\Debug\net8.0\ref\DummyClient.dll
