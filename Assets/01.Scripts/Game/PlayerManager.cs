@@ -21,6 +21,11 @@ public class PlayerManager
         Debug.Log($"스톤포지션 수신 : {StonePosition}");
     }
 
+    public void BroadCastCards()
+    {
+
+    }
+
     public int returnStone()
     {
         return StonePosition;

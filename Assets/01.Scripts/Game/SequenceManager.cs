@@ -147,6 +147,7 @@ public class SequenceManager : MonoBehaviour
     void OnUpdateGame()
     {
         GameObject game = GameObject.Find("TicTacToe");
+        GameObject game1 = GameObject.Find("DaVinciCode");
         if (game.GetComponent<TicTacToe>().IsGameOver() == true)
         {
             m_mode = Mode.Disconnection;
