@@ -1,14 +1,29 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    private bool _hi = false;
+    private CardInfo myInfo;
+
+    private TextMeshPro _number;
     private float curTrmY = 0f;
     private Tween tween;
+
+    private void Awake()
+    {
+        _number = transform.Find("Card/Number").GetComponent<TextMeshPro>();
+    }
     private void Start()
     {
         curTrmY = transform.position.y;
+    }
+
+    public void Setting(CardInfo info)
+    {
+        myInfo = info;
+
+        _number.text = info.Number.ToString();
     }
 
     private void OnMouseEnter()
