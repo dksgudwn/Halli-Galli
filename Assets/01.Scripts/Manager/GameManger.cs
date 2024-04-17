@@ -6,6 +6,8 @@ public enum TurnEnum
 
 public class GameManger : MonoSingleton<GameManger>
 {
+
+
     public TurnEnum CurrnetTurn;
 
     public TurnEnum TurnChange()
