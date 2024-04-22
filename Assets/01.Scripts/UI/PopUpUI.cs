@@ -13,7 +13,7 @@ public interface IUIable
 public class PopUpUI : MonoBehaviour, IUIable
 {
     protected CanvasGroup _panel;
-    private void Awake()
+    protected virtual void Awake()
     {
         _panel = GetComponent<CanvasGroup>();
 

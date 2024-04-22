@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 public enum CardType
 {
@@ -59,6 +59,8 @@ public class CardManager
 
     public Transform ClientCardParent = null;
     public Transform HostCardParent = null;
+
+    public CardInfo CurrentCardInfo;
     #endregion
     public void Setting()
     {
@@ -78,6 +80,8 @@ public class CardManager
 
             Card card = GameObject.Instantiate(blackCard);
             card.Setting(info);
+            card.gameObject.SetActive(false);
+
 
             cardInfoToCardDic.Add(info, card);
             remainingCards.Add(info);
@@ -92,14 +96,45 @@ public class CardManager
 
             Card card = GameObject.Instantiate(whiteCard);
             card.Setting(info);
+            card.gameObject.SetActive(false);
 
             cardInfoToCardDic.Add(info, card);
             remainingCards.Add(info);
         }
     }
+    public void SelectCard(int number)
+    {
+        if (CurrentCardInfo.Number == number)
+        {
+            UIManager.Instance.ShowText("Good~~~", 3f);
+
+            if (cardInfoToCardDic.TryGetValue(CurrentCardInfo, out var value))
+            {
+                if (GameManger.Instance.CurrnetTurn == TurnEnum.Host)
+                {
+                    clientCards.Remove(CurrentCardInfo);
+                    //맞으면 카드 뒤집기
+                    value.transform.eulerAngles = new Vector3(-90, 180, 0);
+                }
+                else
+                {
+                    hostCards.Remove(CurrentCardInfo);
+                    //맞으면 카드 뒤집기
+                    value.transform.eulerAngles = new Vector3(-90, 0, 0);
+                }
+            }
+
+            cardInfoToCardDic.Remove(CurrentCardInfo);
+            value.Dead();
+        }
+        else
+        {
+            UIManager.Instance.ShowText("hahaha~ You Are Wrong", 3f);
+        }
+    }
 
 
-    public void SelectRandomCard(TurnEnum type, int count)
+    public void GetRandomCard(TurnEnum type, int count)
     {
         remainingCards.Shuffle();
 
@@ -127,6 +162,8 @@ public class CardManager
                 hostCards.Add(card);
                 value.transform.parent = HostCardParent;
             }
+
+            value.gameObject.SetActive(true);
         }
 
         remainingCards.RemoveRange(0, count);
