@@ -3,9 +3,12 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using DummyClient;
+using System.Reflection;
+using TMPro;
 
-public class DavinciCode : MonoBehaviour
+public class DaVinciCode : MonoBehaviour
 {
+    [SerializeField] TMP_InputField input;
 
     // 게임 진행 상황.
     private enum GameProgress
@@ -63,20 +66,20 @@ public class DavinciCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (progress)
-        {
-            case GameProgress.Ready:
-                UpdateReady();
-                break;
+        //switch (progress)
+        //{
+        //    case GameProgress.Ready:
+        //        UpdateReady();
+        //        break;
 
-            case GameProgress.Turn:
-                UpdateTurn();
-                break;
+        //    case GameProgress.Turn:
+        //        UpdateTurn();
+        //        break;
 
-            case GameProgress.GameOver:
-                UpdateGameOver();
-                break;
-        }
+        //    case GameProgress.GameOver:
+        //        UpdateGameOver();
+        //        break;
+        //}
     }
 
     // 게임 시작, 외부 UI에서 호출함.
@@ -175,7 +178,8 @@ public class DavinciCode : MonoBehaviour
         buffer[0] = (byte)index;
         Debug.Log($"송신 : {buffer[0]}");
         C_CheckCard movePacket = new C_CheckCard();
-        movePacket.SelectIdx = index;
+        movePacket.SelectIdx = index;       //이것과
+        movePacket.Answer = 0;              //이것을 보낸다
         network.Send(movePacket.Write());
 
         return true;
@@ -188,7 +192,7 @@ public class DavinciCode : MonoBehaviour
 
         // 상대의 정보를 수신합니다.
         int index = PlayerManager.Instance.returnStone();
-        if (index <= 0)
+        if (index <= -1)
         {
             // 아직 수신되지 않았습니다.
             Debug.Log($"수신된 값 : {index}");
@@ -242,4 +246,19 @@ public class DavinciCode : MonoBehaviour
                 break;
         }
     }
+
+    public void TestBtn1()
+    {
+        int selectIndex = int.Parse(input.text);
+        int num = int.Parse(input.text);
+
+        C_CheckCard cardPacket = new C_CheckCard();
+        cardPacket.SelectIdx = selectIndex;
+        cardPacket.Answer = num;
+        network.Send(cardPacket.Write());
+        print("버튼누르기");
+
+    }
+
+
 }

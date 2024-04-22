@@ -18,6 +18,7 @@ namespace DummyClient
         S_BroadCastStone = 6,
         C_CheckCard = 7,
         S_BroadCastCard = 8,
+        S_MoveStone = 9,
     }
 
     public interface IPacket
@@ -29,7 +30,8 @@ namespace DummyClient
 
     public class C_MoveStone : IPacket
     {
-        public int StonePosition;
+        public int select;      // 선택정보
+        public int destinationId;    // 목적지id
         public ushort Protocol { get { return (ushort)PacketID.C_MoveStone; } }
 
         public void Read(ArraySegment<byte> segment)
@@ -37,7 +39,9 @@ namespace DummyClient
             ushort count = 0;
             count += sizeof(ushort);
             count += sizeof(ushort);
-            this.StonePosition = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+            this.select = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+            count += sizeof(int);
+            this.destinationId = BitConverter.ToInt32(segment.Array, segment.Offset + count);
             count += sizeof(int);
         }
 
@@ -49,7 +53,9 @@ namespace DummyClient
             count += sizeof(ushort);
             Array.Copy(BitConverter.GetBytes((ushort)PacketID.C_MoveStone), 0, segment.Array, segment.Offset + count, sizeof(ushort));
             count += sizeof(ushort);
-            Array.Copy(BitConverter.GetBytes(this.StonePosition), 0, segment.Array, segment.Offset + count, sizeof(int));
+            Array.Copy(BitConverter.GetBytes(this.select), 0, segment.Array, segment.Offset + count, sizeof(int));
+            count += sizeof(int);
+            Array.Copy(BitConverter.GetBytes(this.destinationId), 0, segment.Array, segment.Offset + count, sizeof(int));
             count += sizeof(int);
 
             Array.Copy(BitConverter.GetBytes(count), 0, segment.Array, segment.Offset, sizeof(ushort));
@@ -57,6 +63,67 @@ namespace DummyClient
             return SendBufferHelper.Close(count);
         }
     }
+    public class S_MoveStone : IPacket
+    {
+        public int select;      // 선택정보
+        public ushort Protocol { get { return (ushort)PacketID.S_MoveStone; } }
+
+        public void Read(ArraySegment<byte> segment)
+        {
+            ushort count = 0;
+            count += sizeof(ushort);
+            count += sizeof(ushort);
+            this.select = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+            count += sizeof(int);
+        }
+
+        public ArraySegment<byte> Write()
+        {
+            ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+            ushort count = 0;
+
+            count += sizeof(ushort);
+            Array.Copy(BitConverter.GetBytes((ushort)PacketID.S_MoveStone), 0, segment.Array, segment.Offset + count, sizeof(ushort));
+            count += sizeof(ushort);
+            Array.Copy(BitConverter.GetBytes(this.select), 0, segment.Array, segment.Offset + count, sizeof(int));
+            count += sizeof(int);
+
+            Array.Copy(BitConverter.GetBytes(count), 0, segment.Array, segment.Offset, sizeof(ushort));
+
+            return SendBufferHelper.Close(count);
+        }
+    }
+
+    //public class C_MoveStone : IPacket
+    //{
+    //    public int StonePosition;
+    //    public ushort Protocol { get { return (ushort)PacketID.C_MoveStone; } }
+
+    //    public void Read(ArraySegment<byte> segment)
+    //    {
+    //        ushort count = 0;
+    //        count += sizeof(ushort);
+    //        count += sizeof(ushort);
+    //        this.StonePosition = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+    //        count += sizeof(int);
+    //    }
+
+    //    public ArraySegment<byte> Write()
+    //    {
+    //        ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+    //        ushort count = 0;
+
+    //        count += sizeof(ushort);
+    //        Array.Copy(BitConverter.GetBytes((ushort)PacketID.C_MoveStone), 0, segment.Array, segment.Offset + count, sizeof(ushort));
+    //        count += sizeof(ushort);
+    //        Array.Copy(BitConverter.GetBytes(this.StonePosition), 0, segment.Array, segment.Offset + count, sizeof(int));
+    //        count += sizeof(int);
+
+    //        Array.Copy(BitConverter.GetBytes(count), 0, segment.Array, segment.Offset, sizeof(ushort));
+
+    //        return SendBufferHelper.Close(count);
+    //    }
+    //}
 
     //인트형패킷
     public class C_CheckCard : IPacket
@@ -82,6 +149,42 @@ namespace DummyClient
 
             count += sizeof(ushort);
             Array.Copy(BitConverter.GetBytes((ushort)PacketID.C_CheckCard), 0, segment.Array, segment.Offset + count, sizeof(ushort));
+            count += sizeof(ushort);
+            Array.Copy(BitConverter.GetBytes(this.SelectIdx), 0, segment.Array, segment.Offset + count, sizeof(int));
+            count += sizeof(int);
+            Array.Copy(BitConverter.GetBytes(this.Answer), 0, segment.Array, segment.Offset + count, sizeof(int));
+            count += sizeof(int);
+
+            Array.Copy(BitConverter.GetBytes(count), 0, segment.Array, segment.Offset, sizeof(ushort));
+
+            return SendBufferHelper.Close(count);
+        }
+    }
+
+    public class S_BroadCastCard : IPacket
+    {
+        public int SelectIdx;
+        public int Answer;
+        public ushort Protocol { get { return (ushort)PacketID.S_BroadCastCard; } }
+
+        public void Read(ArraySegment<byte> segment)
+        {
+            ushort count = 0;
+            count += sizeof(ushort);
+            count += sizeof(ushort);
+            this.SelectIdx = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+            count += sizeof(int);
+            this.Answer = BitConverter.ToInt32(segment.Array, segment.Offset + count);
+            count += sizeof(int);
+        }
+
+        public ArraySegment<byte> Write()
+        {
+            ArraySegment<byte> segment = SendBufferHelper.Open(4096);
+            ushort count = 0;
+
+            count += sizeof(ushort);
+            Array.Copy(BitConverter.GetBytes((ushort)PacketID.S_BroadCastCard), 0, segment.Array, segment.Offset + count, sizeof(ushort));
             count += sizeof(ushort);
             Array.Copy(BitConverter.GetBytes(this.SelectIdx), 0, segment.Array, segment.Offset + count, sizeof(int));
             count += sizeof(int);

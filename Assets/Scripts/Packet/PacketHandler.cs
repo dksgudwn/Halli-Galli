@@ -34,14 +34,21 @@ namespace DummyClient
             PlayerManager.Instance.Add(pkt);
         }
        
-
-
         public static void S_BroadCastStoneHandler(PacketSession session, IPacket packet)
         {
             S_BroadCastStone pkt = packet as S_BroadCastStone;
             ServerSession serverSession = session as ServerSession;
 
             PlayerManager.Instance.BroadCastStone(pkt);
+        }
+
+        public static void S_BroadCastCard (PacketSession session, IPacket packet)
+        {
+            S_BroadCastCard pkt = packet as S_BroadCastCard;
+            ServerSession serverSession = session as ServerSession;
+
+            PlayerManager.Instance.BroadCastCards(pkt);
+            Debug.Log("핸들러");
         }
 
     }

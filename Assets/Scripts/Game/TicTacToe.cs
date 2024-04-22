@@ -291,9 +291,7 @@ public class TicTacToe : MonoBehaviour
         }
 
         // 선택한 칸의 정보를 송신합니다.
-        byte[] buffer = new byte[1];
-        buffer[0] = (byte)index;
-        Debug.Log($"송신 : {buffer[0]}");
+
         C_MoveStone movePacket = new C_MoveStone();
         movePacket.StonePosition = index;
         network.Send(movePacket.Write());

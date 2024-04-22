@@ -1,13 +1,16 @@
 using DummyClient;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static DummyClient.S_PlayerList;
 
 public class PlayerManager
 {
+    [SerializeField] TMP_Text text;
+
     Player _myPlayer;
-    int StonePosition;
+    int StonePosition = -1;
     // 접속되있는 플레이어들의 목록
     Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
@@ -21,9 +24,11 @@ public class PlayerManager
         Debug.Log($"스톤포지션 수신 : {StonePosition}");
     }
 
-    public void BroadCastCards()
+    public void BroadCastCards(S_BroadCastCard packet)
     {
-
+        StonePosition = packet.Answer;
+        text.text = $"선택: {packet.SelectIdx} 값: {packet.Answer}";
+        Debug.Log("텍스트 띄우기");
     }
 
     public int returnStone()
@@ -89,4 +94,5 @@ public class PlayerManager
             }
         }
     }
+
 }
