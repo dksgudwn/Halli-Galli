@@ -8,11 +8,11 @@ public enum CardType
     Black,
     White,
 }
-public struct CardInfo : IComparable<CardInfo>
+public class CardInfo : IComparable<CardInfo>
 {
     public int CardType;
     public int Number;
-
+    public int ownerId;
     public int CompareTo(CardInfo other)
     {
         int R_num = this.Number.CompareTo(other.Number);
@@ -113,17 +113,12 @@ public class CardManager
                 if (GameManger.Instance.CurrnetTurn == TurnEnum.Host)
                 {
                     clientCards.Remove(CurrentCardInfo);
-                    //맞으면 카드 뒤집기
-                    value.transform.eulerAngles = new Vector3(-90, 180, 0);
                 }
                 else
                 {
                     hostCards.Remove(CurrentCardInfo);
-                    //맞으면 카드 뒤집기
-                    value.transform.eulerAngles = new Vector3(-90, 0, 0);
                 }
             }
-
             cardInfoToCardDic.Remove(CurrentCardInfo);
             value.Dead();
         }
@@ -136,21 +131,21 @@ public class CardManager
 
     public void GetRandomCard(TurnEnum type, int count)
     {
+        if (remainingCards.Count <= 0) return;
         remainingCards.Shuffle();
 
         SetCard(type, count);
         SetPositions(clientCards);
         SetPositions(hostCards);
-
-        Debug.Log("남은 카드 수 :" + remainingCards.Count);
-        Debug.Log("호스트 카드 :" + hostCards.Count);
-        Debug.Log("클라 카드 :" + clientCards.Count);
     }
     private void SetCard(TurnEnum type, int count)
     {
         for (int i = 0; i < count; ++i)
         {
-            var card = remainingCards[i];
+            var selectCard = remainingCards[i];
+            selectCard.ownerId = (int)type + 1;
+
+            var card = selectCard;
             cardInfoToCardDic.TryGetValue(card, out var value);
             if (type == TurnEnum.Client)
             {
@@ -173,16 +168,18 @@ public class CardManager
     {
         cards.Sort();
 
-        int i = 0;
+        int i = 1;
         foreach (var item in cards)
         {
+            float xPos = i * distance;
+
+            Debug.Log(xPos);
             if (cardInfoToCardDic.TryGetValue(item, out var card))
             {
-                card.transform.localPosition = new Vector3(distance * i, 0, 0);
+                card.transform.localPosition = new Vector3(xPos, 0, 0);
                 card.transform.localEulerAngles = new Vector3(0, 180, 0);
-                i++;
             }
-
+            i++;
         }
     }
 }

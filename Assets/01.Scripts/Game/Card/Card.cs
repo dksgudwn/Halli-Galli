@@ -37,10 +37,13 @@ public class Card : MonoBehaviour
     }
     public void Dead()
     {
-        outline.OutlineMode = Outline.Mode.OutlineHidden;
-
         tween.Kill();
         tween = transform.DOMoveY(curTrmY, .15f);
+
+        outline.enabled = false;
+
+        //맞으면 카드 뒤집기
+        transform.localEulerAngles = new Vector3(-90, 180, 0);
 
         Destroy(this);
     }
@@ -56,6 +59,7 @@ public class Card : MonoBehaviour
     {
         if (!GameManger.Instance.IsMyTurn) return;
         if (GameManger.Instance.GameState == GameState.SelectCard) return;
+        if ((int)GameManger.Instance.CurrnetTurn == myInfo.ownerId - 1) return;
 
 
         tween.Kill();
@@ -72,6 +76,7 @@ public class Card : MonoBehaviour
     {
         if (!GameManger.Instance.IsMyTurn) return;
         if (GameManger.Instance.GameState == GameState.SelectCard) return;
+        if ((int)GameManger.Instance.CurrnetTurn == myInfo.ownerId - 1) return;
 
         // 마우스를 클릭할 때 할 작업을 추가하세요.
         UIManager.Instance.ShowText("Select", 3f);

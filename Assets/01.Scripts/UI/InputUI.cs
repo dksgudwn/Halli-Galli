@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,7 +24,9 @@ public class InputUI : PopUpUI
 
     public void OnCheck()
     {
-        int num = int.Parse(numText.text);
+        int num = 0;
+
+        int.TryParse(numText.text,out num);
         CardManager.Instance.SelectCard(num);
         GameManger.Instance.GameState = GameState.EndCard;
     }

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public enum TurnEnum
 {
     Host,
@@ -28,7 +30,7 @@ public class GameManger : MonoSingleton<GameManger>
         }
         set
         {
-            SignalHub.OnChangedGameState.Invoke(value);
+            SignalHub.OnChangedGameState?.Invoke(value);
             _gameState = value;
         }
     }
@@ -38,20 +40,25 @@ public class GameManger : MonoSingleton<GameManger>
     {
         CardManager.Instance.Setting();
         CardManager.Instance.SpawnCard(BlackCardPrefab, WhiteCardPrefab);
-        CardManager.Instance.GetRandomCard(TurnEnum.Client, 4);
-        CardManager.Instance.GetRandomCard(TurnEnum.Host, 4);
+        CardManager.Instance.GetRandomCard(TurnEnum.Client, 2);
+        //CardManager.Instance.GetRandomCard(TurnEnum.Host, 4);
 
         //CardManager.Instance.SelectRandomCard(TurnEnum.Client, 4);
     }
-    /// <summary>
-    /// 내 턴이 끝나면 이 함수를 호출해줌
-    /// </summary>
-    /// <returns></returns>
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            S_TurnChange();
+        }
+    }
+
     public TurnEnum S_TurnChange()
     {
         //턴을 바꿈
         CurrnetTurn = (TurnEnum.Host == CurrnetTurn) ? TurnEnum.Client : TurnEnum.Host;
-
+        CardManager.Instance.GetRandomCard(TurnEnum.Client, 1);
         return CurrnetTurn;
     }
 
