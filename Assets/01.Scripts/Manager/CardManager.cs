@@ -1,17 +1,26 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public enum CardType
 {
     Black,
     White,
 }
-public struct CardInfo
+public struct CardInfo : IComparable<CardInfo>
 {
-    public CardType CardType;
+    public int CardType;
     public int Number;
+
+    public int CompareTo(CardInfo other)
+    {
+        int R_num = this.Number.CompareTo(other.Number);
+        if (R_num != 0) return R_num;
+
+        int R_type = this.CardType.CompareTo(other.CardType);
+        return R_type;
+    }
 }
 
 public class CardManager
@@ -36,20 +45,34 @@ public class CardManager
         }
     }
 
+
     #region 변수
 
+    private float distance = 8f;
+
     private Dictionary<CardInfo, Card> cardInfoToCardDic = new();
-
     public int count => cardInfoToCardDic.Count;
-    #endregion
 
-    public void Setting(Card blackCard, Card whiteCard)
+    public List<CardInfo> clientCards = new(); //상대방 카드
+    public List<CardInfo> hostCards = new(); //나의 카드
+    public List<CardInfo> remainingCards = new(); // 남은 카드
+
+    public Transform ClientCardParent = null;
+    public Transform HostCardParent = null;
+    #endregion
+    public void Setting()
+    {
+        HostCardParent = GameObject.Find("HostCard").transform;
+        ClientCardParent = GameObject.Find("ClientCard").transform;
+    }
+
+    public void SpawnCard(Card blackCard, Card whiteCard)
     {
         for (int i = 0; i < CardCount; ++i)
         {
             CardInfo info = new CardInfo()
             {
-                CardType = CardType.Black,
+                CardType = (int)CardType.Black,
                 Number = i
             };
 
@@ -57,12 +80,13 @@ public class CardManager
             card.Setting(info);
 
             cardInfoToCardDic.Add(info, card);
+            remainingCards.Add(info);
         }
         for (int i = 0; i < CardCount; ++i)
         {
             CardInfo info = new CardInfo()
             {
-                CardType = CardType.White,
+                CardType = (int)CardType.White,
                 Number = i
             };
 
@@ -70,11 +94,58 @@ public class CardManager
             card.Setting(info);
 
             cardInfoToCardDic.Add(info, card);
+            remainingCards.Add(info);
         }
     }
 
-    public List<CardInfo> Shuffle(List<CardInfo> cards)
+
+    public void SelectRandomCard(TurnEnum type, int count)
     {
-        return default;
+        remainingCards.Shuffle();
+
+        SetCard(type, count);
+        SetPositions(clientCards);
+        SetPositions(hostCards);
+
+        Debug.Log("남은 카드 수 :" + remainingCards.Count);
+        Debug.Log("호스트 카드 :" + hostCards.Count);
+        Debug.Log("클라 카드 :" + clientCards.Count);
+    }
+    private void SetCard(TurnEnum type, int count)
+    {
+        for (int i = 0; i < count; ++i)
+        {
+            var card = remainingCards[i];
+            cardInfoToCardDic.TryGetValue(card, out var value);
+            if (type == TurnEnum.Client)
+            {
+                clientCards.Add(card);
+                value.transform.parent = ClientCardParent;
+            }
+            else if (type == TurnEnum.Host)
+            {
+                hostCards.Add(card);
+                value.transform.parent = HostCardParent;
+            }
+        }
+
+        remainingCards.RemoveRange(0, count);
+
+    }
+    private void SetPositions(List<CardInfo> cards)
+    {
+        cards.Sort();
+
+        int i = 0;
+        foreach (var item in cards)
+        {
+            if (cardInfoToCardDic.TryGetValue(item, out var card))
+            {
+                card.transform.localPosition = new Vector3(distance * i, 0, 0);
+                card.transform.localEulerAngles = new Vector3(0, 180, 0);
+                i++;
+            }
+
+        }
     }
 }

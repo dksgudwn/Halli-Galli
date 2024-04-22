@@ -15,10 +15,14 @@ public class GameManger : MonoSingleton<GameManger>
     public TurnEnum CurrnetTurn;
     public TurnEnum myTurn;
 
-    public List<CardInfo> myCards = new(); //나의 카드
-    public List<CardInfo> yourCards = new(); //상대방 카드
-    public List<CardInfo> remainingCards = new(); // 남은 카드
+    private void Start()
+    {
+        CardManager.Instance.Setting();
+        CardManager.Instance.SpawnCard(BlackCardPrefab, WhiteCardPrefab);
+        CardManager.Instance.SelectRandomCard(myTurn, 4);
 
+        //CardManager.Instance.SelectRandomCard(TurnEnum.Client, 4);
+    }
     /// <summary>
     /// 내 턴이 끝나면 이 함수를 호출해줌
     /// </summary>
@@ -31,10 +35,4 @@ public class GameManger : MonoSingleton<GameManger>
         return CurrnetTurn;
     }
 
-    private void Start()
-    {
-        CardManager.Instance.Setting(BlackCardPrefab, WhiteCardPrefab);
-
-        Debug.Log(CardManager.Instance.count);
-    }
 }

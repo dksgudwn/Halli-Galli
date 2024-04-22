@@ -23,7 +23,7 @@ public class Card : MonoBehaviour
     {
         myInfo = info;
 
-        _number.text = info.Number.ToString();
+        _number.text = info.Number == 12 ? "<size=100>-</size>" : info.Number.ToString();
     }
 
     private void OnMouseEnter()
