@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\DummyClient\\DummyClient.csproj",
+      "projectUniqueName": "D:\\Code\\GitHub\\Halli-Galli\\DummyClient\\DummyClient.csproj",
       "projectName": "DummyClient",
-      "projectPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\DummyClient\\DummyClient.csproj",
+      "projectPath": "D:\\Code\\GitHub\\Halli-Galli\\DummyClient\\DummyClient.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\DummyClient\\obj\\",
+      "outputPath": "D:\\Code\\GitHub\\Halli-Galli\\DummyClient\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,8 +53,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj": {
-              "projectPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj"
+            "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj": {
+              "projectPath": "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj"
             }
           }
         }

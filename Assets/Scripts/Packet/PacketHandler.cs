@@ -51,6 +51,16 @@ namespace DummyClient
             Debug.Log("핸들러");
         }
 
+        public static void S_MoveStoneHandler(PacketSession session, IPacket packet)
+        {
+            Debug.Log($"1. 스톤포지션 수신");
+
+            S_MoveStone pkt = packet as S_MoveStone;
+            ServerSession serverSession = session as ServerSession;
+
+            PlayerManager.Instance.CastStone(pkt);
+        }
+
     }
 }
 

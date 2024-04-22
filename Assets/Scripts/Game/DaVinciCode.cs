@@ -249,7 +249,7 @@ public class DaVinciCode : MonoBehaviour
 
     public void TestBtn1()
     {
-        int selectIndex = int.Parse(input.text);
+        int selectIndex = 1;
         int num = int.Parse(input.text);
 
         C_CheckCard cardPacket = new C_CheckCard();

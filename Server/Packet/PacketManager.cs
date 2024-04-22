@@ -31,6 +31,9 @@ namespace Server {
 
             _makeFunc.Add((ushort)PacketID.C_MoveStone, MakePacket<C_MoveStone>);
             _handler.Add((ushort)PacketID.C_MoveStone, PacketHandler.C_MoveStoneHandler);
+
+            _makeFunc.Add((ushort)PacketID.C_CheckCard, MakePacket<C_CheckCard>);
+            _handler.Add((ushort)PacketID.C_CheckCard, PacketHandler.C_CheckCardHandler);
         }
 
         public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer, Action<PacketSession, IPacket> onRecvCallback = null)

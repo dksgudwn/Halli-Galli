@@ -22,3 +22,15 @@ E:\Code\Network\Rookis\RookisOnGoing\ServerCore\bin\Debug\net7.0\ServerCore.deps
 E:\Code\Network\Rookis\RookisOnGoing\ServerCore\bin\Debug\net7.0\ServerCore.dll
 E:\Code\Network\Rookis\RookisOnGoing\ServerCore\bin\Debug\net7.0\ServerCore.pdb
 E:\Code\Network\Rookis\RookisOnGoing\ServerCore\obj\Debug\net7.0\ref\ServerCore.dll
+D:\Code\GitHub\Halli-Galli\ServerCore\bin\Debug\net7.0\ServerCore.deps.json
+D:\Code\GitHub\Halli-Galli\ServerCore\bin\Debug\net7.0\ServerCore.dll
+D:\Code\GitHub\Halli-Galli\ServerCore\bin\Debug\net7.0\ServerCore.pdb
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.csproj.AssemblyReference.cache
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.AssemblyInfoInputs.cache
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.AssemblyInfo.cs
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.csproj.CoreCompileInputs.cache
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.dll
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\refint\ServerCore.dll
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ServerCore.pdb
+D:\Code\GitHub\Halli-Galli\ServerCore\obj\Debug\net7.0\ref\ServerCore.dll

@@ -21,7 +21,23 @@ namespace Server
 
                 // 모두에게 알림
                 S_BroadCastStone move = new S_BroadCastStone();
-                move.StonePosition = session.StonePosition+1;
+                move.StonePosition = session.StonePosition + 1;
+                BroadCast(move.Write());
+
+            }
+        }
+
+        public void CheckCard(ClientSession session, C_CheckCard packet)
+        {
+            lock (_lock)
+            {
+                // 돌 받고
+                session.SelectNum = packet.SelectIdx;
+                session.CardNum = packet.Answer;
+
+                // 모두에게 알림
+                S_BroadCastStone move = new S_BroadCastStone();
+                move.StonePosition = session.StonePosition + 1;
                 BroadCast(move.Write());
 
             }
@@ -30,7 +46,7 @@ namespace Server
 
         public void Enter(ClientSession session)
         {
-            lock(_lock)
+            lock (_lock)
             {   // 신규 유저 추가
                 _sessions.Add(session);
                 session.Room = this;
@@ -39,7 +55,8 @@ namespace Server
                 S_PlayerList players = new S_PlayerList();
                 foreach (ClientSession s in _sessions)
                 {
-                    players.players.Add(new S_PlayerList.Player() {
+                    players.players.Add(new S_PlayerList.Player()
+                    {
                         isSelf = (s == session),
                         playerId = s.SessionId,
                     });
@@ -68,13 +85,13 @@ namespace Server
             }
         }
 
-        public void BroadCast(ArraySegment<byte> segment) 
+        public void BroadCast(ArraySegment<byte> segment)
         {
             ArraySegment<byte> packet = segment;
 
             lock (_lock) // 
             {
-                foreach(ClientSession s in _sessions)
+                foreach (ClientSession s in _sessions)
                 {
                     s.Send(segment);    // 리스트에 들어있는 모든 클라에 전송
                 }

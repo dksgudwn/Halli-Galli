@@ -11,6 +11,8 @@ public class PlayerManager
 
     Player _myPlayer;
     int StonePosition = -1;
+    int TestNum = 0;
+
     // 접속되있는 플레이어들의 목록
     Dictionary<int, Player> _players = new Dictionary<int, Player>();
 
@@ -29,6 +31,18 @@ public class PlayerManager
         StonePosition = packet.Answer;
         text.text = $"선택: {packet.SelectIdx} 값: {packet.Answer}";
         Debug.Log("텍스트 띄우기");
+    }
+
+    // 돌 정보 수신  
+    public void CastStone(S_MoveStone packet)
+    {
+        StonePosition = packet.select;
+        Debug.Log($"스톤포지션 수신 : {StonePosition}");
+    }
+
+    public void CastCard(S_BroadCastCard packet)
+    {
+
     }
 
     public int returnStone()

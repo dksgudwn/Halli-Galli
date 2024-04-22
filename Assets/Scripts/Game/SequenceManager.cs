@@ -27,7 +27,7 @@ public class SequenceManager : MonoBehaviour
     private HostType hostType;
     private const int m_port = 50765;
     private int m_counter = 0;
-    
+
     public GameObject UI_MainMenu;
     public GameObject UI_Game;
     public NetworkManager network;
@@ -139,19 +139,20 @@ public class SequenceManager : MonoBehaviour
         {
             m_mode = Mode.Game;
 
-            GameObject game = GameObject.Find("TicTacToe");
-            game.GetComponent<TicTacToe>().GameStart();
+            GameObject game = GameObject.Find("DaVinciCode");
+            //game.GetComponent<DaVinciCode>().GameStart();
         }
     }
 
     void OnUpdateGame()
     {
-        GameObject game = GameObject.Find("TicTacToe");
-        GameObject game1 = GameObject.Find("DaVinciCode");
-        if (game.GetComponent<TicTacToe>().IsGameOver() == true)
-        {
-            m_mode = Mode.Disconnection;
-        }
+        //GameObject game = GameObject.Find("TicTacToe");
+        //if (game.GetComponent<TicTacToe>().IsGameOver() == true)
+        //{
+        //    m_mode = Mode.Disconnection;
+        //}
+
+        GameObject game = GameObject.Find("DaVinciCode");
     }
 
 

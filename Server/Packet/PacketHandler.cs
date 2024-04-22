@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server {
-    class PacketHandler 
+namespace Server
+{
+    class PacketHandler
     {
         // 돌 놓는거
         public static void C_MoveStoneHandler(PacketSession session, IPacket packet)
@@ -17,12 +18,9 @@ namespace Server {
             if (clientSession.Room == null)
                 return;
             Console.WriteLine($"{movePacket.StonePosition}");
-            
+
             GameRoom room = clientSession.Room;
             room.Move(clientSession, movePacket);
-
-            //GameRoom room = clientSession.Room;
-            //room.Leave(clientSession);
         }
 
         // 클라가 떠났을 때, room에서 내쫓는 동작
@@ -35,6 +33,18 @@ namespace Server {
 
             GameRoom room = clientSession.Room;
             room.Leave(clientSession);
+        }
+
+        public static void C_CheckCardHandler(PacketSession session, IPacket packet)
+        {
+            C_CheckCard cardPacket = packet as C_CheckCard;
+            ClientSession clientSession = session as ClientSession;
+            if (clientSession.Room == null)
+                return;
+            Console.WriteLine($"선택:{cardPacket.SelectIdx} 답:{cardPacket.Answer}");
+
+            GameRoom room = clientSession.Room;
+            room.CheckCard(clientSession, cardPacket);
         }
     }
 }

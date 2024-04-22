@@ -38,6 +38,9 @@ namespace DummyClient {
 
             _makeFunc.Add((ushort)PacketID.S_BroadCastCard, MakePacket<S_BroadCastCard>);
             _handler.Add((ushort)PacketID.S_BroadCastCard, PacketHandler.S_BroadCastCard);
+
+            _makeFunc.Add((ushort)PacketID.S_MoveStone, MakePacket<S_MoveStone>);
+            _handler.Add((ushort)PacketID.S_MoveStone, PacketHandler.S_MoveStoneHandler);
         }
 
         public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer

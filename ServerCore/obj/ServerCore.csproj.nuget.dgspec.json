@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj": {}
+    "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj": {
+    "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj",
+        "projectUniqueName": "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj",
         "projectName": "ServerCore",
-        "projectPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\ServerCore.csproj",
+        "projectPath": "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\ServerCore.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\새 폴더\\ServerCore\\obj\\",
+        "outputPath": "D:\\Code\\GitHub\\Halli-Galli\\ServerCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
