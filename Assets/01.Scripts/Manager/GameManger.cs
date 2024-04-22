@@ -19,7 +19,8 @@ public class GameManger : MonoSingleton<GameManger>
     {
         CardManager.Instance.Setting();
         CardManager.Instance.SpawnCard(BlackCardPrefab, WhiteCardPrefab);
-        CardManager.Instance.SelectRandomCard(myTurn, 4);
+        CardManager.Instance.SelectRandomCard(TurnEnum.Client, 4);
+        CardManager.Instance.SelectRandomCard(TurnEnum.Host, 4);
 
         //CardManager.Instance.SelectRandomCard(TurnEnum.Client, 4);
     }

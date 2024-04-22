@@ -41,5 +41,7 @@ public class Card : MonoBehaviour
     private void OnMouseDown()
     {
         // 마우스를 클릭할 때 할 작업을 추가하세요.
+        UIManager.Instance.ShowText("Select",3f);
+        UIManager.Instance.ShowPanel("InputUI");
     }
 }
