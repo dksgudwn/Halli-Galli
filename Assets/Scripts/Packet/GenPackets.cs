@@ -19,6 +19,7 @@ namespace DummyClient
         C_CheckCard = 7,
         S_BroadCastCard = 8,
         S_MoveStone = 9,
+        S_CheckCard = 10,
     }
 
     public interface IPacket
