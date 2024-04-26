@@ -34,6 +34,9 @@ namespace Server {
 
             _makeFunc.Add((ushort)PacketID.C_CheckCard, MakePacket<C_CheckCard>);
             _handler.Add((ushort)PacketID.C_CheckCard, PacketHandler.C_CheckCardHandler);
+
+            _makeFunc.Add((ushort)PacketID.C_RandomCard, MakePacket<C_RandomCard>);
+            _handler.Add((ushort)PacketID.C_RandomCard, PacketHandler.C_RandomCardHandler);
         }
 
         public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer, Action<PacketSession, IPacket> onRecvCallback = null)

@@ -17,8 +17,17 @@ namespace Server.Session
         public GameRoom Room { get; set; }
 
         public int StonePosition { get; set; }
+
+        //카드를 확인할 때 보낼 숫자.
         public int SelectNum { get; set; }
         public int CardNum { get; set; }
+
+        //랜덤으로 카드를 뽑았으면 보낼 삼가지
+        public int OwnId { get; set; }
+        public int CardType { get; set; }
+        public int RandomNum { get; set; }
+
+
 
         public override void OnConnected(EndPoint endPoint)
         {
@@ -31,7 +40,7 @@ namespace Server.Session
         {
             Console.WriteLine($"OnDisConnected bytes: {endPoint}");
             SessionManager.instance.Remove(this);
-            if(Room!= null)
+            if (Room != null)
             {
                 Room.Leave(this);
                 Room = null;

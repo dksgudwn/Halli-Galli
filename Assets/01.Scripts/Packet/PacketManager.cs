@@ -36,11 +36,12 @@ namespace DummyClient {
             _makeFunc.Add((ushort)PacketID.S_BroadCastStone, MakePacket<S_BroadCastStone>);
             _handler.Add((ushort)PacketID.S_BroadCastStone, PacketHandler.S_BroadCastStoneHandler);
 
-            _makeFunc.Add((ushort)PacketID.S_BroadCastCard, MakePacket<S_BroadCastCard>);
-            _handler.Add((ushort)PacketID.S_BroadCastCard, PacketHandler.S_BroadCastCard);
+            //_makeFunc.Add((ushort)PacketID.S_BroadCastCard, MakePacket<S_BroadCastCard>);
+            //_handler.Add((ushort)PacketID.S_BroadCastCard, PacketHandler.S_BroadCastCard);
 
-            _makeFunc.Add((ushort)PacketID.S_MoveStone, MakePacket<S_MoveStone>);
-            _handler.Add((ushort)PacketID.S_MoveStone, PacketHandler.S_MoveStoneHandler);
+            _makeFunc.Add((ushort)PacketID.S_CheckCard, MakePacket<S_CheckCard>);
+            _handler.Add((ushort)PacketID.S_CheckCard, PacketHandler.S_CheckCardHandler);
+
         }
 
         public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer

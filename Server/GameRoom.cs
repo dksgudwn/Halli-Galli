@@ -31,15 +31,53 @@ namespace Server
         {
             lock (_lock)
             {
-                // 돌 받고
                 session.SelectNum = packet.SelectIdx;
                 session.CardNum = packet.Answer;
 
-                // 모두에게 알림
-                S_BroadCastStone move = new S_BroadCastStone();
-                move.StonePosition = session.StonePosition + 1;
-                BroadCast(move.Write());
+                //// 모두에게 알림
+                //S_BroadCastStone move = new S_BroadCastStone();
+                //move.StonePosition = session.StonePosition + 1;
+                //BroadCast(move.Write());
 
+                foreach (ClientSession s in _sessions)
+                {
+                    Console.WriteLine($"서버게임룸 - SessionId : {s.SessionId}");
+                    if (s.SessionId == packet.destinationId)
+                    {
+                        Console.WriteLine($"서버게임룸 - 선택인덱스 : {packet.SelectIdx}");
+                        Console.WriteLine($"서버게임룸 - 목적지id : {packet.destinationId}");
+                        Console.WriteLine($"서버게임룸 - SessionId : {s.SessionId}");
+
+                        S_CheckCard s_CheckCard = new S_CheckCard();
+                        s_CheckCard.SelectIdx = session.SelectNum;
+                        s_CheckCard.Answer = session.CardNum;
+                        s.Send(s_CheckCard.Write());
+                    }
+                }
+            }
+        }
+
+        public void RandomCard(ClientSession session, C_RandomCard packet)
+        {
+            lock (_lock)
+            {
+                session.RandomNum = packet.Num;
+                session.CardType = packet.Color;
+            }
+            foreach (ClientSession s in _sessions)
+            {
+                Console.WriteLine($"게임룸 - SessionId : {s.SessionId}");
+                if (s.SessionId == packet.destinationId)
+                {
+                    Console.WriteLine($"게임룸 - 숫자 : {packet.Num}");
+                    Console.WriteLine($"게임룸 - 목적지id : {packet.destinationId}");
+                    Console.WriteLine($"게임룸 - SessionId : {s.SessionId}");
+
+                    S_RandomCard s_CheckCard = new S_RandomCard();
+                    s_CheckCard.Num = session.RandomNum;
+                    s_CheckCard.Color = session.CardType;
+                    s.Send(s_CheckCard.Write());
+                }
             }
         }
 

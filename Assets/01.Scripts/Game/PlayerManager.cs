@@ -10,7 +10,8 @@ public class PlayerManager
     [SerializeField] TMP_Text text;
 
     Player _myPlayer;
-    int StonePosition = -1;
+    int StonePosition = 0;
+    int CheckingTurn = 0; // 
     int TestNum = 0;
 
     // 접속되있는 플레이어들의 목록
@@ -26,28 +27,25 @@ public class PlayerManager
         Debug.Log($"스톤포지션 수신 : {StonePosition}");
     }
 
-    public void BroadCastCards(S_BroadCastCard packet)
-    {
-        StonePosition = packet.Answer;
-        text.text = $"선택: {packet.SelectIdx} 값: {packet.Answer}";
-        Debug.Log("텍스트 띄우기");
-    }
+    //public void BroadCastCards(S_BroadCastCard packet)
+    //{
+    //    StonePosition = packet.Answer;
+    //    text.text = $"선택: {packet.SelectIdx} 값: {packet.Answer}";
+    //    Debug.Log("텍스트 띄우기");
+    //}
 
     // 돌 정보 수신  
-    public void CastStone(S_MoveStone packet)
-    {
-        StonePosition = packet.select;
-        Debug.Log($"스톤포지션 수신 : {StonePosition}");
-    }
+    //public void CastStone(S_MoveStone packet)
+    //{
+    //    StonePosition = packet.select;
+    //    Debug.Log($"스톤포지션 수신 : {StonePosition}");
+    //}
 
-    public void CastCard(S_BroadCastCard packet)
+    public int returnStone() // 계속 -1로 있다가 캐스트 스톤이 실행 될 때만 바뀌고 다시 -1
     {
-
-    }
-
-    public int returnStone()
-    {
-        return StonePosition;
+        int returnStone = StonePosition;
+        StonePosition = -1;
+        return returnStone;
     }
 
 
@@ -109,4 +107,8 @@ public class PlayerManager
         }
     }
 
+    public void CastCheckCard(S_CheckCard packet)
+    {
+
+    }
 }

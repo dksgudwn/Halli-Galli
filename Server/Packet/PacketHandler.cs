@@ -3,8 +3,10 @@ using ServerCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Server
 {
@@ -45,6 +47,18 @@ namespace Server
 
             GameRoom room = clientSession.Room;
             room.CheckCard(clientSession, cardPacket);
+        }
+
+        public static void C_RandomCardHandler(PacketSession session, IPacket packet)
+        {
+            C_RandomCard cardPacket = packet as C_RandomCard;
+            ClientSession clientSession = session as ClientSession;
+            if (clientSession.Room == null)
+                return;
+            Console.WriteLine($"서버 - 숫자:{cardPacket.Num} 색:{cardPacket.Color}");
+
+            GameRoom room = clientSession.Room;
+            room.RandomCard(clientSession, cardPacket);
         }
     }
 }
