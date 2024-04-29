@@ -42,11 +42,11 @@ namespace Server
                 foreach (ClientSession s in _sessions)
                 {
                     Console.WriteLine($"서버게임룸 - SessionId : {s.SessionId}");
+                    Console.WriteLine($"서버게임룸 - 목적지id : {packet.destinationId}");
                     if (s.SessionId == packet.destinationId)
                     {
                         Console.WriteLine($"서버게임룸 - 선택인덱스 : {packet.SelectIdx}");
-                        Console.WriteLine($"서버게임룸 - 목적지id : {packet.destinationId}");
-                        Console.WriteLine($"서버게임룸 - SessionId : {s.SessionId}");
+                        Console.WriteLine($"서버게임룸 - Answer : {packet.Answer}");
 
                         S_CheckCard s_CheckCard = new S_CheckCard();
                         s_CheckCard.SelectIdx = session.SelectNum;

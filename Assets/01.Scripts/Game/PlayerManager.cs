@@ -11,8 +11,9 @@ public class PlayerManager
 
     Player _myPlayer;
     int StonePosition = 0;
-    int CheckingTurn = 0; // 
+    bool CheckingTurn = false; // 
     int TestNum = 0;
+    public int SelectIdx, Answer;
 
     // 접속되있는 플레이어들의 목록
     Dictionary<int, Player> _players = new Dictionary<int, Player>();
@@ -47,7 +48,6 @@ public class PlayerManager
         StonePosition = -1;
         return returnStone;
     }
-
 
     // 플레이어 리스트 생성&갱신
     public void Add(S_PlayerList packet)
@@ -109,6 +109,17 @@ public class PlayerManager
 
     public void CastCheckCard(S_CheckCard packet)
     {
+        Debug.Log("체크카드받기");
+        CheckingTurn = true;
+        Debug.Log($"Idx: {packet.SelectIdx} Answer: {packet.Answer}");
+        SelectIdx = packet.SelectIdx;
+        Answer = packet.Answer;
+    }
 
+    public bool returnCard()
+    {
+        bool returnbool = CheckingTurn;
+        CheckingTurn = false;
+        return returnbool;
     }
 }

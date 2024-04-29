@@ -9,6 +9,7 @@ using TMPro;
 public class DaVinciCode : MonoBehaviour
 {
     [SerializeField] TMP_InputField input;
+    [SerializeField] TMP_Text text;
 
     // 게임 진행 상황.
     private enum GameProgress
@@ -24,8 +25,8 @@ public class DaVinciCode : MonoBehaviour
     // 턴 종류.
     private enum Turn
     {
-        Own = 0,        // 자산의 턴.
-        Opponent,       // 상대의 턴.
+        Own = 1,        // 자산의 턴.
+        Opponent = 2,       // 상대의 턴.
     };
 
     // 현재의 턴.
@@ -66,6 +67,7 @@ public class DaVinciCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        text.text = $"Idx: {PlayerManager.Instance.SelectIdx} Answer: {PlayerManager.Instance.Answer}";
         //switch (progress)
         //{
         //    case GameProgress.Ready:
@@ -180,6 +182,8 @@ public class DaVinciCode : MonoBehaviour
         C_CheckCard movePacket = new C_CheckCard();
         movePacket.SelectIdx = index;       //이것과
         movePacket.Answer = 0;              //이것을 보낸다
+
+
         network.Send(movePacket.Write());
 
         return true;
@@ -191,11 +195,11 @@ public class DaVinciCode : MonoBehaviour
         Debug.Log("DoOppnentTurn");
 
         // 상대의 정보를 수신합니다.
-        int index = PlayerManager.Instance.returnStone();
-        if (index <= -1)
+        bool turn = PlayerManager.Instance.returnCard();
+        if (turn == false)
         {
             // 아직 수신되지 않았습니다.
-            Debug.Log($"수신된 값 : {index}");
+            Debug.Log($"수신된 값 : {turn}");
             return false;
         }
 
@@ -204,7 +208,7 @@ public class DaVinciCode : MonoBehaviour
         Debug.Log("받다수신수신");
 
         // 수신한 정보를 선택된 칸으로 변환합니다. 
-        Debug.Log("Recv:" + index + " [" + network.IsServer() + "]");
+        Debug.Log("Recv:" + turn + " [" + network.IsServer() + "]");
 
 
         return true;
@@ -224,8 +228,6 @@ public class DaVinciCode : MonoBehaviour
         string message = "회선이 끊겼습니다.\n\n버튼을 누르세요.";
 
     }
-
-
 
     // 게임 종료 체크.
     public bool IsGameOver()
@@ -255,10 +257,18 @@ public class DaVinciCode : MonoBehaviour
         C_CheckCard cardPacket = new C_CheckCard();
         cardPacket.SelectIdx = selectIndex;
         cardPacket.Answer = num;
+
+        if (localTurn == Turn.Own)          //서버인 경우
+            cardPacket.destinationId = (int)Turn.Opponent;
+        else
+            cardPacket.destinationId = (int)Turn.Own;
+        Debug.Log(cardPacket.destinationId);
+
         network.Send(cardPacket.Write());
         print("버튼누르기");
-
     }
-
-
+    public void TestBtn2()
+    {
+        print(DoOppnentTurn());
+    }
 }

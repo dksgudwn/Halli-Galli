@@ -140,7 +140,7 @@ public class SequenceManager : MonoBehaviour
             m_mode = Mode.Game;
 
             GameObject game = GameObject.Find("DaVinciCode");
-            //game.GetComponent<DaVinciCode>().GameStart();
+            game.GetComponent<DaVinciCode>().GameStart();
         }
     }
 

@@ -429,29 +429,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 103512858}
-  - component: {fileID: 103512857}
   - component: {fileID: 103512859}
   m_Layer: 0
-  m_Name: TicTacToe
+  m_Name: DaVinciCode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &103512857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103512856}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff2133bb2496d3344b1e65476c3a0f1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circleTexture: {fileID: 2800000, guid: 519e032d3ac61ef4090c6d0be37b7ddd, type: 3}
-  crossTexture: {fileID: 2800000, guid: ee3cbf941fa56de488a5deb5bd5c367d, type: 3}
 --- !u!4 &103512858
 Transform:
   m_ObjectHideFlags: 0
@@ -480,6 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 495937901}
+  text: {fileID: 1832077506}
 --- !u!1 &169541452
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +693,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 294268136}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 103512859}
+        m_TargetAssemblyTypeName: DaVinciCode, Assembly-CSharp
+        m_MethodName: TestBtn2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &294268136
 MonoBehaviour:
   m_ObjectHideFlags: 0
