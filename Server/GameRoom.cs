@@ -34,10 +34,6 @@ namespace Server
                 session.SelectNum = packet.SelectIdx;
                 session.CardNum = packet.Answer;
 
-                //// 모두에게 알림
-                //S_BroadCastStone move = new S_BroadCastStone();
-                //move.StonePosition = session.StonePosition + 1;
-                //BroadCast(move.Write());
 
                 foreach (ClientSession s in _sessions)
                 {

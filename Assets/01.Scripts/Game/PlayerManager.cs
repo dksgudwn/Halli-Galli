@@ -116,6 +116,11 @@ public class PlayerManager
         Answer = packet.Answer;
     }
 
+    public void BroadCastRandomCard()
+    {
+        //CardManager.Instance.GetRandomCard
+    }
+
     public bool returnCard()
     {
         bool returnbool = CheckingTurn;

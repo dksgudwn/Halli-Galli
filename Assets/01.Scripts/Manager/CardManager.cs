@@ -1,3 +1,4 @@
+using DummyClient;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -138,7 +139,7 @@ public class CardManager
         SetPositions(clientCards);
         SetPositions(hostCards);
     }
-    private void SetCard(TurnEnum type, int count)
+    public void SetCard(TurnEnum type, int count)
     {
         for (int i = 0; i < count; ++i)
         {
@@ -146,6 +147,16 @@ public class CardManager
             selectCard.ownerId = (int)type + 1;
 
             var card = selectCard;
+
+            C_RandomCard cardPacket = new C_RandomCard();
+            cardPacket.Num = card.Number;
+            cardPacket.Color = card.CardType;
+            if (DaVinciCode.Instance.localTurn == DaVinciCode.Turn.Own)          //서버인 경우
+                cardPacket.destinationId = (int)DaVinciCode.Turn.Opponent;
+            else
+                cardPacket.destinationId = (int)DaVinciCode.Turn.Own;
+            Debug.Log(cardPacket.destinationId);
+
             cardInfoToCardDic.TryGetValue(card, out var value);
             if (type == TurnEnum.Client)
             {

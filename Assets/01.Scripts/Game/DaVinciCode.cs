@@ -6,10 +6,11 @@ using DummyClient;
 using System.Reflection;
 using TMPro;
 
-public class DaVinciCode : MonoBehaviour
+public class DaVinciCode : MonoSingleton<DaVinciCode>
 {
     [SerializeField] TMP_InputField input;
     [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text turnText;
 
     // 게임 진행 상황.
     private enum GameProgress
@@ -23,7 +24,7 @@ public class DaVinciCode : MonoBehaviour
     };
 
     // 턴 종류.
-    private enum Turn
+    public enum Turn
     {
         Own = 1,        // 자산의 턴.
         Opponent = 2,       // 상대의 턴.
@@ -33,7 +34,7 @@ public class DaVinciCode : MonoBehaviour
     private Turn turn;
 
     // 로컬 기호.
-    private Turn localTurn;
+    public Turn localTurn;
 
     // 리모트 기호.
     private Turn remoteTurn;
@@ -67,6 +68,18 @@ public class DaVinciCode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool checkTurn = PlayerManager.Instance.returnCard();
+        if (checkTurn == false)
+        {
+            // 아직 수신되지 않았습니다.
+            Debug.Log($"수신된 값 : {turn}");
+        }
+        else
+        {
+            print("업데이트에서턴을바꾸다");
+            turn = (turn == Turn.Own) ? Turn.Opponent : Turn.Own;
+        }
+        turnText.text = turn.ToString();
         text.text = $"Idx: {PlayerManager.Instance.SelectIdx} Answer: {PlayerManager.Instance.Answer}";
         //switch (progress)
         //{
@@ -251,21 +264,27 @@ public class DaVinciCode : MonoBehaviour
 
     public void TestBtn1()
     {
-        int selectIndex = 1;
-        int num = int.Parse(input.text);
+        if (turn == localTurn)
+        {
+            int selectIndex = 1;
+            int num = int.Parse(input.text);
 
-        C_CheckCard cardPacket = new C_CheckCard();
-        cardPacket.SelectIdx = selectIndex;
-        cardPacket.Answer = num;
+            C_CheckCard cardPacket = new C_CheckCard();
+            cardPacket.SelectIdx = selectIndex;
+            cardPacket.Answer = num;
 
-        if (localTurn == Turn.Own)          //서버인 경우
-            cardPacket.destinationId = (int)Turn.Opponent;
-        else
-            cardPacket.destinationId = (int)Turn.Own;
-        Debug.Log(cardPacket.destinationId);
+            turn = (turn == Turn.Own) ? Turn.Opponent : Turn.Own;
+            Debug.Log($"턴 갱신 :{turn}");
 
-        network.Send(cardPacket.Write());
-        print("버튼누르기");
+            if (localTurn == Turn.Own)
+                cardPacket.destinationId = (int)Turn.Opponent;
+            else
+                cardPacket.destinationId = (int)Turn.Own;
+            Debug.Log(cardPacket.destinationId);
+
+            network.Send(cardPacket.Write());
+        }
+        else { print("내 턴이 아니다람"); }
     }
     public void TestBtn2()
     {

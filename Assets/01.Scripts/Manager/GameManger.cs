@@ -40,8 +40,8 @@ public class GameManger : MonoSingleton<GameManger>
     {
         CardManager.Instance.Setting();
         CardManager.Instance.SpawnCard(BlackCardPrefab, WhiteCardPrefab);
-        CardManager.Instance.GetRandomCard(TurnEnum.Client, 2);
-        //CardManager.Instance.GetRandomCard(TurnEnum.Host, 4);
+        CardManager.Instance.GetRandomCard(TurnEnum.Client, 4);
+        CardManager.Instance.GetRandomCard(TurnEnum.Host, 4);
 
         //CardManager.Instance.SelectRandomCard(TurnEnum.Client, 4);
     }
@@ -58,7 +58,7 @@ public class GameManger : MonoSingleton<GameManger>
     {
         //ÅÏÀ» ¹Ù²Ş
         CurrnetTurn = (TurnEnum.Host == CurrnetTurn) ? TurnEnum.Client : TurnEnum.Host;
-        CardManager.Instance.GetRandomCard(TurnEnum.Client, 1);
+        CardManager.Instance.GetRandomCard(CurrnetTurn, 1);
         return CurrnetTurn;
     }
 

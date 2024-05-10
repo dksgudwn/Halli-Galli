@@ -37,7 +37,7 @@ public class SequenceManager : MonoBehaviour
         hostType = HostType.Server;
 
         UI_MainMenu.SetActive(false);
-        UI_Game.SetActive(true);
+        //UI_Game.SetActive(true);
     }
 
     public void OnClick_BtnEnterRoom()
@@ -45,7 +45,7 @@ public class SequenceManager : MonoBehaviour
         hostType = HostType.Client;
 
         UI_MainMenu.SetActive(false);
-        UI_Game.SetActive(true);
+        //UI_Game.SetActive(true);
     }
     public void OnClick_Exit()
     {

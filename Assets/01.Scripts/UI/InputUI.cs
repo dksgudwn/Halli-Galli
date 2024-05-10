@@ -1,3 +1,4 @@
+using DummyClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,8 +27,13 @@ public class InputUI : PopUpUI
     {
         int num = 0;
 
-        int.TryParse(numText.text,out num);
-        CardManager.Instance.SelectCard(num);
+        if (int.TryParse(numText.text, out num))
+        {
+            C_CheckCard card = new C_CheckCard();
+            //card.SelectIdx = ;
+            card.Answer = num;
+            CardManager.Instance.SelectCard(num);
+        }
         GameManger.Instance.GameState = GameState.EndCard;
     }
 
